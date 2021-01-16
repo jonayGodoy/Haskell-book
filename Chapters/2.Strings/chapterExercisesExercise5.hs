@@ -9,4 +9,4 @@ rvrs =  extractThirdWord x ++ " " ++ extractSecondWord x ++ " " ++ extractFirstW
        extractThirdWord x = drop 9 x
  
 main :: IO()
-main = putStrLn rvrs
+main = print $ rvrs
