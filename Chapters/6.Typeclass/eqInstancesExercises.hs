@@ -12,3 +12,10 @@ instance Eq TisAnInteger where
 --      [1]          [2]
 --1. Constructor de tipos
 --2. Constructor de datos
+
+
+--2 exercise
+data TwoIntegers = Two Integer Integer
+
+instance Eq TwoIntegers where
+ (== )(Two a b) (Two a' b') = a == a' && b == b'
