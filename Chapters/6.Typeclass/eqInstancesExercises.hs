@@ -4,8 +4,11 @@ module EqInstanceExercices where
 --1 exercise
 data TisAnInteger = TisAn Integer
 
-instance Eq a b => (Eq a) (Integer b) where
-  (==) (TisAn Integer) (TisAn' Integer') = 
-        TisAn == TisAn' && Integer == Integer
+instance Eq TisAnInteger where
+  (==) (TisAn x) (TisAn x') = x == x'
 
-   
+--Como definiste TisAnInteger, tu constructor de datos es TisAn, noTisAnInteger
+--data TisAnInteger = TisAn Integer
+--      [1]          [2]
+--1. Constructor de tipos
+--2. Constructor de datos

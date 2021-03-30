@@ -31,4 +31,4 @@ instance Eq Date where
   && dayOfMonth == dayOfMonth'
   
 instance Show Date where
- show (Date weekday dayOfMonth) = show weekday ++ " " ++ show dayOfMonth 
+ show (Date weekday dayOfMonth) = show weekday ++ " " ++ show dayOfMonth
