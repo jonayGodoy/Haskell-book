@@ -31,8 +31,22 @@ s2 = Sentence "Julie" "loves" "dogs"
 
 
 myX = 1 :: Int
-sigmund' :: Num a => a -> a
+sigmund' :: Int -> Int
 sigmund' x = myX
 
 --Type-Kwon-Do Two: Electric Typealoo
+--1
+--chk :: Eq b => (a -> b) -> a -> b -> Bool
+--chk = ???
+chk x y z = x(y) == z
+
+--2
+
+--arith :: Num b
+--      => (a -> b)
+--      -> Integer
+--     -> a
+--      -> b
+--arith = ???
+arith x y z = x(z) + fromInteger y
 
