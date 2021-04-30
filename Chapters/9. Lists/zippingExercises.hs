@@ -24,3 +24,18 @@ genericZip f xs xs' =  go f xs xs' 0 []
 
 zip4 :: [a] -> [b] -> [(a, b)]
 zip4 xs xs' = genericZip (\x y -> (x,y)) xs xs'
+
+--solution that i found in internet and i liked it
+
+zip' :: [a] -> [b] -> [(a, b)]
+zip' _ [] = []
+zip' [] _ = []
+zip' (x:xs) (y:ys) = (x, y) : zip' xs ys
+
+
+--solution that i found in internet and i liked it
+
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' f _ [] = []
+zipWith' f [] _ = []
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
