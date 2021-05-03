@@ -42,13 +42,29 @@ squishMap :: (a -> [b]) -> [a] -> [b]
 squishMap f [] = []
 squishMap f (x: xs) = (f x) ++ squishMap (f) xs
 
---squishAgain :: [[a]] -> [a]
---squishAgain xs = squishMap (\x -> fst x) xs
+squishAgain :: [[a]] -> [a]
+squishAgain xs = squishMap (\x -> x) xs
 
 myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
 myMaximumBy f (x:xs) = go f xs x
  where go _ [] greatest = greatest
-       f (x':xs') greatest = if ((f x' greatest) == GT)
+       go f (x':xs') greatest = if ((f x' greatest) == GT)
                               then go f xs' x'
                               else go f xs' greatest
+
+
+myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
+myMinimumBy f (x:xs) = go f xs x
+ where go _ [] greatest = greatest
+       go f (x':xs') greatest = if ((f x' greatest) == LT)
+                              then go f xs' x'
+                              else go f xs' greatest
+
+
+myMaximum :: (Ord a) => [a] -> a
+myMaximum xs = myMaximumBy compare xs
+
+
+myMinimum :: (Ord a) => [a] -> a
+myMinimum xs = myMinimumBy compare xs
 
