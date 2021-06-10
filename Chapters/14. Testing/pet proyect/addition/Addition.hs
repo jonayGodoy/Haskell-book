@@ -1,6 +1,7 @@
 module Addition where
 
 import Test.Hspec
+import Test.QuickCheck
 
 sayHello :: IO ()
 sayHello = putStrLn "hello!"
@@ -26,6 +27,13 @@ main = hspec $ do
    dividedBy 15 3 `shouldBe` (5, 0)
   it "22 divided by 5 is 4 remainder 2" $ do
     dividedBy 22 5 `shouldBe` (4, 2)
- describe "Intermission: Short Exercise, multiple" $ do
-  it "2 x 4 is equal to 8" $ do
-   2 `multiple` 4 `shouldBe` 8
+  describe "Intermission: Short Exercise, multiple" $ do
+   it "2 x 4 is equal to 8" $ do
+    2 `multiple` 4 `shouldBe` 8
+ describe "property test" $ do
+  it "x + 1 is always greater than x" $ do
+   property $ \x -> x + 1 > (x :: Int)
+ 
+ 
+ 
+ 
