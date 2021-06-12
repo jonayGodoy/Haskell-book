@@ -16,6 +16,7 @@ multiple :: (Eq a, Num a) => a -> a -> a
 multiple x 1 = x
 multiple x y = x + multiple x (y - 1)
 
+
 main :: IO ()
 main = hspec $ do
  describe "Addition" $ do
@@ -33,7 +34,66 @@ main = hspec $ do
  describe "property test" $ do
   it "x + 1 is always greater than x" $ do
    property $ \x -> x + 1 > (x :: Int)
- 
- 
- 
- 
+
+-- Using QuickCheck without Hspec
+prop_additionGreater :: Int -> Bool
+prop_additionGreater x = x + 1 > x
+
+runQc :: IO ()
+runQc = quickCheck prop_additionGreater
+
+
+-- Gen type
+
+trivialInt :: Gen Int
+trivialInt = return 1
+
+oneThroughThree :: Gen Int
+oneThroughThree = elements [1, 2, 3]
+
+oneThroughThree' :: Gen Int
+oneThroughThree' = elements [1, 2, 2, 2, 2, 3]
+
+genBool :: Gen Bool
+genBool = choose (False, True)
+
+genBool' :: Gen Bool
+genBool' = elements [False, True]
+
+genOrdering :: Gen Ordering
+genOrdering = elements [LT, EQ, GT]
+
+genChar :: Gen Char
+genChar = elements ['a'..'z']
+
+-- important sample genTuple
+-- important sample (genTuple :: Gen (Int, Float))
+
+genTuple :: (Arbitrary a, Arbitrary b) => Gen (a, b)
+genTuple = do
+ a <- arbitrary
+ b <- arbitrary
+ return (a, b)
+
+genThreeple :: (Arbitrary a, Arbitrary b, Arbitrary c) => Gen (a, b, c)
+genThreeple = do
+ a <- arbitrary
+ b <- arbitrary
+ c <- arbitrary
+ return (a, b, c)
+
+genEither :: (Arbitrary a, Arbitrary b) => Gen (Either a b)
+genEither = do
+ a <- arbitrary
+ b <- arbitrary
+ elements [Left a, Right b]
+
+genMaybe :: Arbitrary a => Gen (Maybe a)
+genMaybe = do
+ a <- arbitrary
+ elements [Nothing, Just a]
+
+genMaybe' :: Arbitrary a => Gen (Maybe a)
+genMaybe' = do
+ a <- arbitrary
+ frequency [ (1, return Nothing), (3, return (Just a))]
