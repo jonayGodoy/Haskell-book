@@ -24,3 +24,9 @@ main = hspec $ do
    quickCheck (monoidLeftIdentity :: String -> Bool)
   it "has right identity" $ do
    quickCheck (monoidRightIdentity :: String -> Bool)
+--exercise pending   
+--  describe "Exercise: Maybe Another Monoid" $ do
+--   it "quickCheck test" $ do
+--    quickCheck (monoidAssoc :: FirstMappend)
+--    quickCheck (monoidLeftIdentity :: FstId)
+--    quickCheck (monoidRightIdentity :: FstId)FstId)
