@@ -50,6 +50,7 @@ test-suite test-project-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      SemigroupChapterExercises
       Paths_test_project
   hs-source-dirs:
       test
