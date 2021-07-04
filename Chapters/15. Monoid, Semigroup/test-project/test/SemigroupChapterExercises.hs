@@ -19,7 +19,7 @@ semigroupAssoc a b c = (a <> (b <> c)) == ((a <> b) <> c)
 type TrivAssoc = Trivial -> Trivial -> Trivial -> Bool
 
 
---2 .
+--2
 newtype Identity a = Identity a deriving (Show, Eq)
 
 
@@ -29,10 +29,18 @@ instance Arbitrary a => Arbitrary (Identity a) where
   return (Identity x)
 
 
-type IdentityAssoc = Identity Sum -> Identity Sum -> Identity Sum -> Bool
+type IdentityAssoc = Identity Trivial -> Identity Trivial -> Identity Trivial -> Bool
 
 instance Semigroup a => Semigroup (Identity a) where
  (Identity x) <> (Identity y) = Identity (x <> y)
+
+--3
+
+data Two a b = Two a b
+
+
+
+
 
 main :: IO ()
 main = do
