@@ -23,9 +23,22 @@ li x = c (x :: [Int])
 type IntToInt = Fun Int Int
 type IntFC = [Int] -> IntToInt -> IntToInt -> Bool
 
-
 main :: IO ()
 main = do
  quickCheck f
  quickCheck li
  quickCheck (functorCompose' :: IntFC)
+ quickCheck (\x -> functorIdentity $ Identity (x::Int))
+ quickCheck (\x -> functorCompose (+1) (*2) $ Identity (x::Int))
+
+-- InstancesFuncExercise
+
+-- 1
+newtype Identity a = Identity a deriving(Eq, Show)
+
+
+instance Functor Identity where
+ fmap f (Identity a) = Identity (f a)
+
+
+
