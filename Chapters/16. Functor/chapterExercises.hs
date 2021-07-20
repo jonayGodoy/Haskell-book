@@ -65,4 +65,39 @@ data Notorious g o a t = Notorious (g o) (g a) (g t) deriving (Eq, Show)
 instance Functor g => Functor (Notorious g o a) where
  fmap f (Notorious go ga gt) = Notorious go ga (fmap f gt)
 
+-- 9 
+
+data List a = Nil | Cons a (List a)
+
+instance Functor List where
+ fmap _ (Nil) = Nil
+ fmap f (Cons a la) = Cons (f a) (fmap f la)
+
+-- 10 
+
+data GoatLord a =
+ NoGoat
+ | OneGoat a
+ | MoreGoats (GoatLord a)(GoatLord a)(GoatLord a) deriving (Eq, Show)
+
+
+instance Functor GoatLord where
+ fmap _ NoGoat = NoGoat
+ fmap f (OneGoat a) = OneGoat (f a)
+ fmap f (MoreGoats ga ga' ga'') = MoreGoats (fmap f ga) (fmap f ga') (fmap f ga'')
+
+
+-- 11
+
+data TalkToMe a =
+ Halt
+ | Print String a
+ | Read (String -> a)
+
+
+-- skip, copy solution
+instance Functor TalkToMe where
+  fmap _ Halt        = Halt
+  fmap f (Print x y) = Print x (f y)
+  fmap f (Read f2a)  = Read (fmap f f2a)
 
