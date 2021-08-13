@@ -144,17 +144,3 @@ mkSoftware years coders = do
         TooManyCodersForYears
         founded programmers
   else Right $ Shop founded programmers
-
-
-
-
-
-
-
-
-
-
-
-
-
-

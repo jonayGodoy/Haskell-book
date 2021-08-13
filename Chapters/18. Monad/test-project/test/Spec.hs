@@ -39,4 +39,3 @@ main = do
  quickBatch $ functor trigger
  quickBatch $ applicative trigger
  quickBatch $ monad trigger
-
