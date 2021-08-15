@@ -57,6 +57,72 @@ instance Monad (PhhhbbtttEither b) where
 
 peither = undefined :: PhhhbbtttEither String SSI
 
+
+newtype Identity a = Identity a deriving (Eq, Ord, Show)
+
+instance Eq a => EqProp (Identity a) where
+ (=-=) = eq
+
+instance Arbitrary a => Arbitrary (Identity a) where
+ arbitrary = do
+  x <- arbitrary
+  return (Identity x)
+
+instance Functor Identity where
+ fmap f (Identity x) = Identity (f x)
+
+
+instance Applicative Identity where
+ pure x = Identity x
+ Identity f <*> Identity x  = Identity (f x)
+
+
+instance Monad Identity where
+ return = pure
+ Identity x >>= f = f x
+
+identity = undefined :: Identity SSI
+
+
+
+data List a = Nil | Cons a (List a) deriving (Show, Eq)
+
+instance Arbitrary a => Arbitrary (List a) where
+ arbitrary = do
+  x <- arbitrary
+  return $ Cons x Nil
+
+instance Eq a => EqProp (List a) where
+ (=-=) = eq
+
+instance Functor List where
+ fmap _ Nil = Nil
+ fmap f (Cons x xs) = Cons (f x) (fmap f xs)
+
+instance Applicative List where
+ pure x = Cons x Nil
+ Nil <*> _                   = Nil
+ _  <*> Nil                 = Nil
+ (Cons f fs) <*> (Cons x xs) = Cons (f x) (fs <*> xs)
+
+
+instance Monoid (List a) where
+  mempty = Nil
+  
+instance Semigroup (List a) where  
+  Nil <> ys         = ys
+  (Cons x xs) <> ys = Cons x (xs <> ys)
+
+
+
+instance Monad List where
+  return = pure
+  Nil >>= _ = Nil
+  Cons x xs >>= f = f x `mappend` (xs >>= f)
+
+
+list = undefined :: List SSI
+
 main :: IO ()
 main = do
  putStrLn "\n1. Nope"
@@ -67,4 +133,11 @@ main = do
  quickBatch $ functor peither
  quickBatch $ applicative peither
  quickBatch $ monad peither
- 
+ putStrLn "\n3. Identity"
+ quickBatch $ functor identity
+ quickBatch $ applicative identity
+ quickBatch $ monad identity
+ putStrLn "\n4. List"
+ quickBatch $ functor list
+ quickBatch $ applicative list
+ quickBatch $ monad list
