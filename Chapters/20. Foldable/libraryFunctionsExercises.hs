@@ -34,3 +34,24 @@ null' = foldr (\_ _ -> False) True
 
 length' :: (Foldable t) => t a -> Int
 length' = foldr (\x y -> y + 1) 0
+
+
+toList' :: (Foldable t) => t a -> [a]
+toList' = foldr (\x y -> x : y) []
+
+--copy solution, this was a surprise was really simple
+fold' :: (Foldable t, Monoid m) => t m -> m
+fold' = foldMap id
+
+
+--copy solution
+foldMap'' :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
+foldMap'' f = foldr (mappend . f) mempty
+
+
+
+
+
+
+
+
