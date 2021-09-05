@@ -32,6 +32,9 @@ tupled' = do
  y <- rev
  return (x, y)
 
+tupled'' :: [Char] -> ([Char], [Char])
+tupled'' = rev >>= \x -> cap >>= -> return (x, y)
+
 
 
 
