@@ -26,6 +26,8 @@ monday s0 =
 
 
 -- the same with State
+-- newtype State s a = State { runState :: s -> (a, s) }
+
 
 coinS, pushS :: State TurnstileState TurnstileOutput
 coinS = state coin
